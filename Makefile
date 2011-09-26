@@ -26,6 +26,9 @@ all: $(COMPILED_LANGS) HelloWorld.class hello-world.exe run
 	@printf "Java:    "
 	@$(TIME) $(RUN) java HelloWorld > /dev/null
 
+install:
+	sudo apt-get install gcc gdc ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
+
 C: hello-world.c
 	gcc -o $@ $^
 
