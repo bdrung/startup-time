@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
     int i;
     int n;
     int length;
+    int return_code;
     char *command;
 
     n = atoi(argv[1]);
@@ -31,7 +32,10 @@ int main(int argc, char *argv[]) {
     command[length] = '\n';
 
     for(i = 0; i < n; i++) {
-        system(command);
+        return_code = system(command);
+        if(return_code != 0) {
+            return return_code;
+        }
     }
     return 0;
 }
