@@ -19,8 +19,8 @@ define \n
 endef
 
 all: $(COMPILED_LANGS) HelloWorld.class hello-world.exe run
-	$(foreach lang,$(COMPILED_LANGS),@printf "%-9s" $(lang): $(\n)@$(TIME) $(RUN) ./$(lang) > /dev/null$(\n))
-	$(foreach lang,$(INTERPRETED_LANGS),@printf "%-9s" $(lang): $(\n)@$(TIME) $(RUN) ./hello-world.$($(lang)_EXT) > /dev/null$(\n))
+	$(foreach lang,$(COMPILED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./$(lang) > /dev/null$(\n))
+	$(foreach lang,$(INTERPRETED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./hello-world.$($(lang)_EXT) > /dev/null$(\n))
 	@printf "C#:      "
 	@$(TIME) $(RUN) ./hello-world.exe > /dev/null
 	@printf "Java:    "
@@ -30,7 +30,7 @@ install:
 	sudo apt-get install gcc gdc ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
 
 C: hello-world.c
-	gcc -o $@ $^
+	gcc -Wall -Wextra -O3 -o $@ $^
 
 run: run.c
 	gcc -Wall -Wextra -O3 -o $@ $^
@@ -39,7 +39,7 @@ D: $(wildcard *.d)
 	gdc -Wall -Wextra -O3 -o $@ $^
 
 Haskell: $(wildcard *.hs)
-	ghc -o $@ -main-is HelloWorld $^
+	ghc -Wall -O3 -o $@ -main-is HelloWorld $^
 
 HelloWorld.class: $(wildcard *.java)
 	javac $^
