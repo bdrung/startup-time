@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
-for i in $(seq $1); do
-    $2 $3 > /dev/null
+runs=$1
+shift
+for i in $(seq $runs); do
+    $@ > /dev/null
 done
