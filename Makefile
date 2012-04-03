@@ -36,7 +36,7 @@ run: run.c
 	gcc -std=gnu99 -Wall -Wextra -Werror -O3 -o $@ $^
 
 D: $(wildcard *.d)
-	gdc -Wall -Wextra -O3 -o $@ $^
+	gdc -Wall -O3 -o $@ $^
 
 Go: hello-world.go
 	gccgo -O3 -o $@ $^
