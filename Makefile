@@ -11,7 +11,7 @@ Shell_EXT := sh
 ZShell_EXT := zsh
 
 TIME := time -f "%e"
-RUN := ./run.sh 100
+RUN := ./run 100
 
 define \n
 
