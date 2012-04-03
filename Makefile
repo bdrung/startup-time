@@ -30,10 +30,10 @@ install:
 	sudo apt-get install gcc gdc gccgo ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
 
 C: hello-world.c
-	gcc -Wall -Wextra -O3 -o $@ $^
+	gcc -std=c99 -Wall -Wextra -Werror -O3 -o $@ $^
 
 run: run.c
-	gcc -Wall -Wextra -O3 -o $@ $^
+	gcc -std=gnu99 -Wall -Wextra -Werror -O3 -o $@ $^
 
 D: $(wildcard *.d)
 	gdc -Wall -Wextra -O3 -o $@ $^
