@@ -19,13 +19,15 @@ define \n
 
 endef
 
-all: $(COMPILED_LANGS) HelloWorld.class hello-world.exe run
+all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class run
 	$(foreach lang,$(COMPILED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./$(lang) > /dev/null$(\n))
 	$(foreach lang,$(INTERPRETED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./hello-world.$($(lang)_EXT) > /dev/null$(\n))
 	@printf "C#:      "
 	@$(TIME) $(RUN) ./hello-world.exe > /dev/null
 	@printf "Java:    "
 	@$(TIME) $(RUN) $(shell which java) HelloWorld > /dev/null
+	@printf "Scala:   "
+	@$(TIME) $(RUN) $(shell which scala) HelloWorldScala > /dev/null
 
 install:
 	sudo apt-get install gcc gdc fp-compiler gccgo ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
@@ -53,6 +55,9 @@ Pascal: hello-world.p
 
 HelloWorld.class: $(wildcard *.java)
 	javac $^
+
+HelloWorldScala.class: $(wildcard *.scala)
+	scalac $^
 
 hello-world.exe: $(wildcard *.cs)
 	gmcs $^

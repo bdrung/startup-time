@@ -1,3 +1,3 @@
-object HalloWelt extends Application {
-    println("Hallo Welt!")
+object HelloWorldScala extends App {
+    println("Hello World!")
 }
