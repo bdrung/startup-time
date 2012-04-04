@@ -1,4 +1,4 @@
-COMPILED_LANGS := C D Go Haskell
+COMPILED_LANGS := C C++ D Go Haskell
 INTERPRETED_LANGS := Bash CShell Perl PHP Python Python3 Ruby Shell ZShell
 Bash_EXT := bash
 CShell_EXT := csh
@@ -34,6 +34,9 @@ C: hello-world.c
 
 run: run.c
 	gcc -std=gnu99 -Wall -Wextra -Werror -O3 -o $@ $^
+
+C++: hello-world.cpp
+	g++ -Wall -Wextra -Werror -O3 -o $@ $^
 
 D: $(wildcard *.d)
 	gdc -Wall -O3 -o $@ $^
