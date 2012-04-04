@@ -1,4 +1,4 @@
-COMPILED_LANGS := C C++ D Go Haskell
+COMPILED_LANGS := C C++ D Go Haskell Pascal
 INTERPRETED_LANGS := Bash CShell Perl PHP Python Python3 Ruby Shell ZShell
 Bash_EXT := bash
 CShell_EXT := csh
@@ -27,7 +27,7 @@ all: $(COMPILED_LANGS) HelloWorld.class hello-world.exe run
 	@$(TIME) $(RUN) $(shell which java) HelloWorld > /dev/null
 
 install:
-	sudo apt-get install gcc gdc gccgo ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
+	sudo apt-get install gcc gdc fp-compiler gccgo ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
 
 C: hello-world.c
 	gcc -std=c99 -Wall -Wextra -Werror -O3 -o $@ $^
@@ -46,6 +46,9 @@ Go: hello-world.go
 
 Haskell: $(wildcard *.hs)
 	ghc -Wall -O3 -o $@ -main-is HelloWorld $^
+
+Pascal: hello-world.p
+	fpc -O3 -o$@ $^
 
 HelloWorld.class: $(wildcard *.java)
 	javac $^
