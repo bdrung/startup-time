@@ -1,7 +1,8 @@
 COMPILED_LANGS := C C++ D Go Haskell Pascal
-INTERPRETED_LANGS := Bash CShell Perl PHP Python Python3 Ruby Shell ZShell
+INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python Python3 Ruby Shell ZShell
 Bash_EXT := bash
 CShell_EXT := csh
+Lua_EXT := lua
 Perl_EXT := pl
 PHP_EXT := php
 Python_EXT := py
