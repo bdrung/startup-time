@@ -46,15 +46,17 @@ PACKAGES := \
 	zsh \
 	$(NULL)
 
+run_lang = \
+	@printf "%-8s " "$(1):" $(\n)\
+	@$(TIME) $(RUN) $(2) 2>&1 > /dev/null | tr -d '\n'$(\n)\
+	@printf " ms\n"
+
 all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class run
-	$(foreach lang,$(COMPILED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./$(lang) > /dev/null$(\n))
-	$(foreach lang,$(INTERPRETED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./hello-world.$($(lang)_EXT) > /dev/null$(\n))
-	@printf "C#:      "
-	@$(TIME) $(RUN) ./hello-world.exe > /dev/null
-	@printf "Java:    "
-	@$(TIME) $(RUN) $(shell which java) HelloWorld > /dev/null
-	@printf "Scala:   "
-	@$(TIME) $(RUN) $(shell which scala) HelloWorldScala > /dev/null
+	$(foreach lang,$(COMPILED_LANGS),$(call run_lang,$(lang),./$(lang))$(\n))
+	$(foreach lang,$(INTERPRETED_LANGS),$(call run_lang,$(lang),./hello-world.$($(lang)_EXT))$(\n))
+	$(call run_lang,C#,./hello-world.exe)
+	$(call run_lang,Java,$(shell which java) HelloWorld)
+	$(call run_lang,Scala,$(shell which scala) HelloWorldScala)
 
 install:
 	sudo apt-get install $(PACKAGES)
