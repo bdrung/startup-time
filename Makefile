@@ -19,6 +19,13 @@ define \n
 
 endef
 
+CFLAGS ?= -std=c99 -Wall -Wextra -Werror -O3
+CPPFLAGS ?= -Wall -Wextra -Werror -O3
+DFLAGS ?= -Wall -O3
+GOFLAGS ?= -O3
+HASKELL_FLAGS ?= -Wall -O3
+PASCAL_FLAGS ?= -O3
+
 PACKAGES := \
 	bash \
 	csh \
@@ -53,25 +60,25 @@ install:
 	sudo apt-get install $(PACKAGES)
 
 C: hello-world.c
-	gcc -std=c99 -Wall -Wextra -Werror -O3 -o $@ $^
+	gcc $(CFLAGS) -o $@ $^
 
 run: run.c
-	gcc -std=gnu99 -Wall -Wextra -Werror -O3 -o $@ $^
+	gcc $(CFLAGS) -o $@ $^
 
 C++: hello-world.cpp
-	g++ -Wall -Wextra -Werror -O3 -o $@ $^
+	g++ $(CPPFLAGS) -o $@ $^
 
 D: $(wildcard *.d)
-	gdc -Wall -O3 -o $@ $^
+	gdc $(DFLAGS) -o $@ $^
 
 Go: hello-world.go
-	gccgo -O3 -o $@ $^
+	gccgo $(GO_FLAGS) -o $@ $^
 
 Haskell: $(wildcard *.hs)
-	ghc -Wall -O3 -o $@ -main-is HelloWorld $^
+	ghc $(HASKELL_FLAGS) -o $@ -main-is HelloWorld $^
 
 Pascal: hello-world.p
-	fpc -O3 -o$@ $^
+	fpc $(PASCAL_FLAGS) -o$@ $^
 
 HelloWorld.class: $(wildcard *.java)
 	javac $^
