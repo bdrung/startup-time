@@ -19,6 +19,26 @@ define \n
 
 endef
 
+PACKAGES := \
+	bash \
+	csh \
+	fp-compiler \
+	gcc \
+	gccgo \
+	gdc \
+	ghc \
+	lua5.1 \
+	mono-gmcs \
+	openjdk-6-jdk \
+	perl-base \
+	php5-cli \
+	python \
+	python3 \
+	ruby \
+	scala \
+	zsh \
+	$(NULL)
+
 all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class run
 	$(foreach lang,$(COMPILED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./$(lang) > /dev/null$(\n))
 	$(foreach lang,$(INTERPRETED_LANGS),@printf "%-8s " $(lang): $(\n)@$(TIME) $(RUN) ./hello-world.$($(lang)_EXT) > /dev/null$(\n))
@@ -30,7 +50,7 @@ all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class ru
 	@$(TIME) $(RUN) $(shell which scala) HelloWorldScala > /dev/null
 
 install:
-	sudo apt-get install gcc gdc fp-compiler gccgo ghc openjdk-6-jdk mono-gmcs bash csh php5-cli perl-base python python3 ruby zsh
+	sudo apt-get install $(PACKAGES)
 
 C: hello-world.c
 	gcc -std=c99 -Wall -Wextra -Werror -O3 -o $@ $^
