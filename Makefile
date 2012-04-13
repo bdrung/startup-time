@@ -19,7 +19,7 @@ define \n
 
 endef
 
-CFLAGS ?= -std=c99 -Wall -Wextra -Werror -O3
+CFLAGS ?= -std=gnu99 -Wall -Wextra -Werror -O3
 CPPFLAGS ?= -Wall -Wextra -Werror -O3
 DFLAGS ?= -Wall -O3
 GO_FLAGS ?= -O3
