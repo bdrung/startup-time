@@ -12,7 +12,7 @@ Shell_EXT := sh
 ZShell_EXT := zsh
 
 TIME := time -f "%e"
-RUN := ./run 1000
+RUN := taskset -c 0 ./run 1000
 
 define \n
 
