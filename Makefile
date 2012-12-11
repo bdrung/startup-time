@@ -29,6 +29,7 @@ PASCAL_FLAGS ?= -O3
 PACKAGES := \
 	bash \
 	csh \
+	default-jdk \
 	fp-compiler \
 	gcc \
 	gccgo \
@@ -36,7 +37,6 @@ PACKAGES := \
 	ghc \
 	lua5.1 \
 	mono-gmcs \
-	openjdk-6-jdk \
 	perl-base \
 	php5-cli \
 	python \
