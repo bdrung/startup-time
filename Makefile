@@ -15,6 +15,7 @@ ZShell_EXT := zsh
 C_COMPILER := gcc
 C++_COMPILER := g++
 Csharp_COMPILER := gmcs
+MONO := mono
 D_COMPILER := gdc
 Go_COMPILER := gccgo
 Haskell_COMPILER := ghc
@@ -91,7 +92,7 @@ run_lang = \
 all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class run
 	$(foreach lang,$(COMPILED_LANGS),$(call run_lang,$(lang) ($($(lang)_COMPILER) $($(lang)_VERSION)),./$(lang))$(\n))
 	$(foreach lang,$(INTERPRETED_LANGS),$(call run_lang,$(lang) $($(lang)_VERSION),./hello-world.$($(lang)_EXT))$(\n))
-	$(call run_lang,C# ($(Csharp_COMPILER) $(Csharp_VERSION)),./hello-world.exe)
+	$(call run_lang,C# ($(Csharp_COMPILER) $(Csharp_VERSION)),$(MONO) ./hello-world.exe)
 	$(call run_lang,Java ($(Java_COMPILER) $(Java_VERSION)),$(shell which java) HelloWorld)
 	$(call run_lang,Scala ($(Scala_COMPILER) $(Scala_VERSION)),$(shell which scala) HelloWorldScala)
 
