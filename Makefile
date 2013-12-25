@@ -72,7 +72,7 @@ PACKAGES := \
 	gccgo \
 	gdc \
 	ghc \
-	lua5.1 \
+	lua5.2 \
 	mono-gmcs \
 	perl-base \
 	php5-cli \
