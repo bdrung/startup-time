@@ -59,7 +59,7 @@ endif
 CFLAGS ?= -std=gnu99 -Wall -Wextra -Werror -O3
 CPPFLAGS ?= -Wall -Wextra -Werror -O3
 DFLAGS ?= -Wall -O3
-GO_FLAGS ?= -O3
+GO_FLAGS ?= -g -O3
 HASKELL_FLAGS ?= -Wall -O3
 PASCAL_FLAGS ?= -O3
 
