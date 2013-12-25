@@ -50,6 +50,12 @@ define \n
 
 endef
 
+ifeq ($(shell id -u),0)
+ROOT_CMD :=
+else
+ROOT_CMD := sudo
+endif
+
 CFLAGS ?= -std=gnu99 -Wall -Wextra -Werror -O3
 CPPFLAGS ?= -Wall -Wextra -Werror -O3
 DFLAGS ?= -Wall -O3
@@ -90,7 +96,7 @@ all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class ru
 	$(call run_lang,Scala ($(Scala_COMPILER) $(Scala_VERSION)),$(shell which scala) HelloWorldScala)
 
 install:
-	sudo apt-get install $(PACKAGES)
+	$(ROOT_CMD) apt-get install $(PACKAGES)
 
 C: hello-world.c
 	$(C_COMPILER) $(CFLAGS) -o $@ $^
