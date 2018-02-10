@@ -14,7 +14,7 @@ ZShell_EXT := zsh
 
 C_COMPILER := gcc
 C++_COMPILER := g++
-Csharp_COMPILER := gmcs
+Csharp_COMPILER := mcs
 MONO := $(shell which mono)
 D_COMPILER := gdc
 Go_COMPILER := gccgo
@@ -74,7 +74,7 @@ PACKAGES := \
 	gdc \
 	ghc \
 	lua5.2 \
-	mono-gmcs \
+	mono-mcs \
 	perl-base \
 	php5-cli \
 	python \
