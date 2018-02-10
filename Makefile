@@ -1,4 +1,4 @@
-COMPILED_LANGS := C C++ D Go_GCC Haskell Pascal
+COMPILED_LANGS := C C++ D Go Go_GCC Haskell Pascal
 INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python Python3 Ruby Shell ZShell
 
 Bash_EXT := bash
@@ -17,6 +17,7 @@ C++_COMPILER := g++
 Csharp_COMPILER := mcs
 MONO := $(shell which mono)
 D_COMPILER := gdc
+Go_COMPILER := go
 Go_GCC_COMPILER := gccgo
 Haskell_COMPILER := ghc
 Java_COMPILER := javac
@@ -29,6 +30,7 @@ C++_VERSION = $(shell $(C++_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Csharp_VERSION = $(shell $(Csharp_COMPILER) --version | head -n 1 | cut -d " " -f 5)
 CShell_VERSION = $(shell dpkg-query --showformat='$${Version}' --show csh | sed 's/-.*$$//')
 D_VERSION = $(shell $(D_COMPILER) --version | head -n 1 | cut -d " " -f 4)
+Go_VERSION = $(shell $(Go_COMPILER) version | head -n 1 | cut -d " " -f 3)
 Go_GCC_VERSION = $(shell $(Go_GCC_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Haskell_VERSION = $(shell $(Haskell_COMPILER) --version | head -n 1 | cut -d " " -f 8)
 Lua_VERSION = $(shell lua -v 2>&1 | head -n 1 | cut -d " " -f 2)
@@ -73,6 +75,7 @@ PACKAGES := \
 	gccgo \
 	gdc \
 	ghc \
+	golang \
 	lua5.2 \
 	mono-mcs \
 	perl-base \
@@ -110,6 +113,9 @@ C++: hello-world.cpp
 
 D: $(wildcard *.d)
 	$(D_COMPILER) $(DFLAGS) -o $@ $^
+
+Go: hello-world.go
+	$(Go_COMPILER) build -o $@ $^
 
 Go_GCC: hello-world.go
 	$(Go_GCC_COMPILER) $(Go_GCC_FLAGS) -o $@ $^
