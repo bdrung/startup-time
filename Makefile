@@ -100,6 +100,7 @@ run_lang = \
 	@printf " ms\n"
 
 all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class run
+	@echo 'Run on: $(shell sed -n "s/^model name\t: //p" /proc/cpuinfo | head -n 1) | $(shell . /etc/os-release; echo $$PRETTY_NAME) | $(shell date +%Y-%m-%d)'
 	$(foreach lang,$(COMPILED_LANGS),$(call run_lang,$(lang) ($($(lang)_COMPILER) $($(lang)_VERSION)),./$(lang))$(\n))
 	$(foreach lang,$(INTERPRETED_LANGS),$(call run_lang,$(lang) $($(lang)_VERSION),./hello-world.$($(lang)_EXT))$(\n))
 	$(call run_lang,C# ($(Csharp_COMPILER) $(Csharp_VERSION)),$(MONO) ./hello-world.exe)
