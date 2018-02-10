@@ -1,4 +1,4 @@
-COMPILED_LANGS := C C++ D Go Go_GCC Haskell Pascal Rust
+COMPILED_LANGS := C C++ Cython Cython3 D Go Go_GCC Haskell Pascal Rust
 INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python-S Python Python3-S Python3 Ruby Shell ZShell
 
 Bash_EXT := bash
@@ -17,6 +17,8 @@ ZShell_EXT := zsh
 C_COMPILER := gcc
 C++_COMPILER := g++
 Csharp_COMPILER := mcs
+Cython_COMPILER := cython
+Cython3_COMPILER := cython3
 MONO := $(shell which mono)
 D_COMPILER := gdc
 Go_COMPILER := go
@@ -32,6 +34,8 @@ C_VERSION = $(shell $(C_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 C++_VERSION = $(shell $(C++_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Csharp_VERSION = $(shell $(Csharp_COMPILER) --version | head -n 1 | cut -d " " -f 5)
 CShell_VERSION = $(shell dpkg-query --showformat='$${Version}' --show csh | sed 's/-[a-z0-9~.]\+$$//')
+Cython_VERSION = $(shell $(Cython_COMPILER) --version 2>&1 | head -n 1 | cut -d " " -f 3)
+Cython3_VERSION = $(shell $(Cython3_COMPILER) --version 2>&1 | head -n 1 | cut -d " " -f 3)
 D_VERSION = $(shell $(D_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Go_VERSION = $(shell $(Go_COMPILER) version | head -n 1 | cut -d " " -f 3)
 Go_GCC_VERSION = $(shell $(Go_GCC_COMPILER) --version | head -n 1 | cut -d " " -f 4)
@@ -75,6 +79,8 @@ PASCAL_FLAGS ?= -O3
 PACKAGES := \
 	bash \
 	csh \
+	cython \
+	cython3 \
 	default-jdk \
 	fp-compiler \
 	gcc \
@@ -95,7 +101,7 @@ PACKAGES := \
 	$(NULL)
 
 run_lang = \
-	@printf "%-23s " "$(1):" $(\n)\
+	@printf "%-25s " "$(1):" $(\n)\
 	@$(TIME) $(RUN) $(2) 2>&1 > /dev/null | tr -d '\n'$(\n)\
 	@printf " ms\n"
 
@@ -115,6 +121,18 @@ C: hello-world.c
 
 run: run.c
 	$(C_COMPILER) $(CFLAGS) -o $@ $^
+
+hello_cython.c: hello.pyx
+	$(Cython_COMPILER) --embed -o $@ $^
+
+Cython: hello_cython.c
+	$(C_COMPILER) $(CFLAGS) -o $@ $^ $(shell pkg-config --cflags --libs python-$(shell echo $(Python_VERSION) | cut -d. -f1-2))
+
+hello_cython3.c: hello.pyx3
+	$(Cython3_COMPILER) --embed -o $@ $^
+
+Cython3: hello_cython3.c
+	$(C_COMPILER) $(CFLAGS) -o $@ $^ $(shell pkg-config --cflags --libs python-$(shell echo $(Python3_VERSION) | cut -d. -f1-2))
 
 C++: hello-world.cpp
 	$(C++_COMPILER) $(CPPFLAGS) -o $@ $^
@@ -147,6 +165,6 @@ hello-world.exe: $(wildcard *.cs)
 	$(Csharp_COMPILER) $^
 
 clean:
-	rm -f *.class *.exe *.hi *.o run $(COMPILED_LANGS)
+	rm -f *.class *.exe *.hi *.o run hello_cython.c hello_cython3.c $(COMPILED_LANGS)
 
 .PHONY: all clean

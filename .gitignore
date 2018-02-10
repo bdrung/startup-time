@@ -1,9 +1,13 @@
 C
 C++
+Cython
+Cython3
 D
 Go
 Go_GCC
 Haskell
+hello_cython.c
+hello_cython3.c
 Pascal
 run
 Rust
