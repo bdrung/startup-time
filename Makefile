@@ -28,16 +28,16 @@ Bash_VERSION = $(shell bash --version | head -n 1 | cut -d " " -f 4 | sed 's/-re
 C_VERSION = $(shell $(C_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 C++_VERSION = $(shell $(C++_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Csharp_VERSION = $(shell $(Csharp_COMPILER) --version | head -n 1 | cut -d " " -f 5)
-CShell_VERSION = $(shell dpkg-query --showformat='$${Version}' --show csh | sed 's/-.*$$//')
+CShell_VERSION = $(shell dpkg-query --showformat='$${Version}' --show csh | sed 's/-[a-z0-9~.]\+$$//')
 D_VERSION = $(shell $(D_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Go_VERSION = $(shell $(Go_COMPILER) version | head -n 1 | cut -d " " -f 3)
 Go_GCC_VERSION = $(shell $(Go_GCC_COMPILER) --version | head -n 1 | cut -d " " -f 4)
 Haskell_VERSION = $(shell $(Haskell_COMPILER) --version | head -n 1 | cut -d " " -f 8)
 Lua_VERSION = $(shell lua -v 2>&1 | head -n 1 | cut -d " " -f 2)
 Java_VERSION = $(shell $(Java_COMPILER) -version 2>&1 | head -n 1 | cut -d " " -f 2)
-Pascal_VERSION = $(shell $(Pascal_COMPILER) -h | head -n 1 | cut -d " " -f 5)
+Pascal_VERSION = $(shell $(Pascal_COMPILER) -h | head -n 1 | cut -d " " -f 5 | sed 's/\(+dfsg\)\?-[a-z0-9~.]\+$$//')
 Perl_VERSION = $(shell perl --version | grep '.' | head -n 1 | sed 's/.*(v\(.*\)).*/\1/')
-PHP_VERSION = $(shell php --version | head -n 1 | cut -d " " -f 2)
+PHP_VERSION = $(shell php --version | head -n 1 | cut -d " " -f 2 | sed 's/-[a-z0-9~.]\+$$//')
 Python_VERSION = $(shell python --version 2>&1 | head -n 1 | cut -d " " -f 2)
 Python3_VERSION = $(shell python3 --version 2>&1 | head -n 1 | cut -d " " -f 2)
 Ruby_VERSION = $(shell ruby --version | head -n 1 | cut -d " " -f 2)
@@ -88,7 +88,7 @@ PACKAGES := \
 	$(NULL)
 
 run_lang = \
-	@printf "%-22s " "$(1):" $(\n)\
+	@printf "%-23s " "$(1):" $(\n)\
 	@$(TIME) $(RUN) $(2) 2>&1 > /dev/null | tr -d '\n'$(\n)\
 	@printf " ms\n"
 
