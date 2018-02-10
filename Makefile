@@ -76,7 +76,7 @@ PACKAGES := \
 	lua5.2 \
 	mono-mcs \
 	perl-base \
-	php5-cli \
+	php-cli \
 	python \
 	python3 \
 	ruby \
