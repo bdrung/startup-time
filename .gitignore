@@ -6,6 +6,7 @@ Go_GCC
 Haskell
 Pascal
 run
+Rust
 *.class
 *.exe
 *.hi

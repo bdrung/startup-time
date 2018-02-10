@@ -1,4 +1,4 @@
-COMPILED_LANGS := C C++ D Go Go_GCC Haskell Pascal
+COMPILED_LANGS := C C++ D Go Go_GCC Haskell Pascal Rust
 INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python Python3 Ruby Shell ZShell
 
 Bash_EXT := bash
@@ -22,6 +22,7 @@ Go_GCC_COMPILER := gccgo
 Haskell_COMPILER := ghc
 Java_COMPILER := javac
 Pascal_COMPILER := fpc
+Rust_COMPILER := rustc
 Scala_COMPILER := scalac
 
 Bash_VERSION = $(shell bash --version | head -n 1 | cut -d " " -f 4 | sed 's/-release$$//')
@@ -41,6 +42,7 @@ PHP_VERSION = $(shell php --version | head -n 1 | cut -d " " -f 2 | sed 's/-[a-z
 Python_VERSION = $(shell python --version 2>&1 | head -n 1 | cut -d " " -f 2)
 Python3_VERSION = $(shell python3 --version 2>&1 | head -n 1 | cut -d " " -f 2)
 Ruby_VERSION = $(shell ruby --version | head -n 1 | cut -d " " -f 2)
+Rust_VERSION = $(shell $(Rust_COMPILER) --version | head -n 1 | cut -d " " -f 2)
 Scala_VERSION = $(shell $(Scala_COMPILER) -version 2>&1 | head -n 1 | cut -d " " -f 4)
 Shell_VERSION = $(shell printf "(%s %s)" $(shell readlink /bin/sh) $(shell dpkg-query --showformat='$${Version}' --show $(shell readlink /bin/sh) | sed 's/-.*$$//'))
 ZShell_VERSION = $(shell zsh --version | head -n 1 | cut -d " " -f 2)
@@ -83,6 +85,7 @@ PACKAGES := \
 	python \
 	python3 \
 	ruby \
+	rustc \
 	scala \
 	zsh \
 	$(NULL)
@@ -125,6 +128,9 @@ Haskell: $(wildcard *.hs)
 
 Pascal: hello-world.p
 	$(Pascal_COMPILER) $(PASCAL_FLAGS) -o$@ $^
+
+Rust: hello-world.rs
+	$(Rust_COMPILER) -o $@ $^
 
 HelloWorld.class: $(wildcard *.java)
 	$(Java_COMPILER) $^
