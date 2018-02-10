@@ -1,0 +1,3 @@
+#!/usr/bin/python -S
+
+print "Hello World!"

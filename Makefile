@@ -1,5 +1,5 @@
 COMPILED_LANGS := C C++ D Go Go_GCC Haskell Pascal Rust
-INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python Python3 Ruby Shell ZShell
+INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python-S Python Python3-S Python3 Ruby Shell ZShell
 
 Bash_EXT := bash
 CShell_EXT := csh
@@ -7,7 +7,9 @@ Lua_EXT := lua
 Perl_EXT := pl
 PHP_EXT := php
 Python_EXT := py
+Python-S_EXT := py-S
 Python3_EXT := py3
+Python3-S_EXT := py3-S
 Ruby_EXT := rb
 Shell_EXT := sh
 ZShell_EXT := zsh
@@ -40,7 +42,9 @@ Pascal_VERSION = $(shell $(Pascal_COMPILER) -h | head -n 1 | cut -d " " -f 5 | s
 Perl_VERSION = $(shell perl --version | grep '.' | head -n 1 | sed 's/.*(v\(.*\)).*/\1/')
 PHP_VERSION = $(shell php --version | head -n 1 | cut -d " " -f 2 | sed 's/-[a-z0-9~.]\+$$//')
 Python_VERSION = $(shell python --version 2>&1 | head -n 1 | cut -d " " -f 2)
+Python-S_VERSION = $(Python_VERSION)
 Python3_VERSION = $(shell python3 --version 2>&1 | head -n 1 | cut -d " " -f 2)
+Python3-S_VERSION = $(Python3_VERSION)
 Ruby_VERSION = $(shell ruby --version | head -n 1 | cut -d " " -f 2)
 Rust_VERSION = $(shell $(Rust_COMPILER) --version | head -n 1 | cut -d " " -f 2)
 Scala_VERSION = $(shell $(Scala_COMPILER) -version 2>&1 | head -n 1 | cut -d " " -f 4)
