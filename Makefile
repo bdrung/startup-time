@@ -1,5 +1,5 @@
 COMPILED_LANGS := C C++ Cython Cython3 D Go Go_GCC Haskell Pascal Rust
-INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python-S Python Python3-S Python3 Ruby Shell ZShell
+INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python-S Python Python3-S Python3 PyPy Ruby Shell ZShell
 
 Bash_EXT := bash
 CShell_EXT := csh
@@ -10,6 +10,7 @@ Python_EXT := py
 Python-S_EXT := py-S
 Python3_EXT := py3
 Python3-S_EXT := py3-S
+PyPy_EXT := pypy
 Ruby_EXT := rb
 Shell_EXT := sh
 ZShell_EXT := zsh
@@ -49,6 +50,7 @@ Python_VERSION = $(shell python --version 2>&1 | head -n 1 | cut -d " " -f 2)
 Python-S_VERSION = $(Python_VERSION)
 Python3_VERSION = $(shell python3 --version 2>&1 | head -n 1 | cut -d " " -f 2)
 Python3-S_VERSION = $(Python3_VERSION)
+PyPy_VERSION = $(shell pypy --version 2>&1 | tail -n 1 | cut -d " " -f 2)
 Ruby_VERSION = $(shell ruby --version | head -n 1 | cut -d " " -f 2)
 Rust_VERSION = $(shell $(Rust_COMPILER) --version | head -n 1 | cut -d " " -f 2)
 Scala_VERSION = $(shell $(Scala_COMPILER) -version 2>&1 | head -n 1 | cut -d " " -f 4)
@@ -94,6 +96,7 @@ PACKAGES := \
 	php-cli \
 	python \
 	python3 \
+	pypy \
 	ruby \
 	rustc \
 	scala \

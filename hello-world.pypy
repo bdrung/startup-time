@@ -1,0 +1,3 @@
+#!/usr/bin/pypy
+
+print "Hello World!"
