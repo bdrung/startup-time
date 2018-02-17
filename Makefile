@@ -58,7 +58,7 @@ Shell_VERSION = $(shell printf "(%s %s)" $(shell readlink /bin/sh) $(shell dpkg-
 ZShell_VERSION = $(shell zsh --version | head -n 1 | cut -d " " -f 2)
 
 TIME := time -f "%e"
-RUN := taskset -c 0 ./run 1000
+RUN := ./run 0 1000
 
 define \n
 

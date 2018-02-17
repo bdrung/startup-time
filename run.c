@@ -14,10 +14,13 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include <unistd.h>
+#include <sched.h>
 #include <sys/wait.h>
 
 #ifdef __GNUC__
@@ -29,26 +32,41 @@
 #endif
 
 int main(int argc, char *argv[]) {
-    char *command[argc-1];
+    char *command[argc-2];
+    cpu_set_t cpu_set;
+    int core;
     int n;
     int status;
     pid_t pid;
 
-    if(unlikely(argc < 3)) {
-        fprintf(stderr, "Usage: %s n prog [arguments]\n", argv[0]);
+    if(unlikely(argc < 4)) {
+        fprintf(stderr, "Usage: %s core n prog [arguments]\n", argv[0]);
         return EXIT_FAILURE;
     }
 
-    n = atoi(argv[1]);
-    if(unlikely(n <= 0)) {
+    core = atoi(argv[1]);
+    if(unlikely(core < 0)) {
         fprintf(stderr, "run: The first parameter must be an unsigned integer.\n");
         return EXIT_FAILURE;
     }
 
-    for(int i = 2; i < argc; i++) {
-        command[i-2] = argv[i];
+    n = atoi(argv[2]);
+    if(unlikely(n < 0)) {
+        fprintf(stderr, "run: The second parameter must be an unsigned integer.\n");
+        return EXIT_FAILURE;
     }
-    command[argc-2] = NULL;
+
+    for(int i = 3; i < argc; i++) {
+        command[i-3] = argv[i];
+    }
+    command[argc-3] = NULL;
+
+    CPU_ZERO(&cpu_set);
+    CPU_SET(core, &cpu_set);
+    if(unlikely(sched_setaffinity(getpid(), sizeof(cpu_set), &cpu_set) == -1)) {
+        perror("run");
+        exit(EXIT_FAILURE);
+    }
 
     for(volatile int i = 0; i < n; i++) {
         pid = vfork();
