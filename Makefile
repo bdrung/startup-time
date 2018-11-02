@@ -1,4 +1,4 @@
-COMPILED_LANGS := C C++ Cython Cython3 D Go Go_GCC Haskell Pascal Rust
+COMPILED_LANGS := C C++ Cython Cython3 D Go Go_GCC Haskell OCaml Pascal Rust
 INTERPRETED_LANGS := Bash CShell Lua Perl PHP Python-S Python Python3-S Python3 PyPy Ruby Shell ZShell
 
 Bash_EXT := bash
@@ -25,6 +25,7 @@ D_COMPILER := gdc
 Go_COMPILER := go
 Go_GCC_COMPILER := gccgo
 Haskell_COMPILER := ghc
+OCaml_COMPILER := ocamlc
 Java_COMPILER := javac
 Pascal_COMPILER := fpc
 Rust_COMPILER := rustc
@@ -43,6 +44,7 @@ Go_GCC_VERSION = $(shell $(Go_GCC_COMPILER) --version | head -n 1 | cut -d " " -
 Haskell_VERSION = $(shell $(Haskell_COMPILER) --version | head -n 1 | cut -d " " -f 8)
 Lua_VERSION = $(shell lua -v 2>&1 | head -n 1 | cut -d " " -f 2)
 Java_VERSION = $(shell $(Java_COMPILER) -version 2>&1 | head -n 1 | cut -d " " -f 2)
+OCaml_VERSION = $(shell $(OCaml_COMPILER) -version)
 Pascal_VERSION = $(shell $(Pascal_COMPILER) -h | head -n 1 | cut -d " " -f 5 | sed 's/\(+dfsg\)\?-[a-z0-9~.]\+$$//')
 Perl_VERSION = $(shell perl --version | grep '.' | head -n 1 | sed 's/.*(v\(.*\)).*/\1/')
 PHP_VERSION = $(shell php --version | head -n 1 | cut -d " " -f 2 | sed 's/-[a-z0-9~.]\+$$//')
@@ -92,6 +94,7 @@ PACKAGES := \
 	golang \
 	lua5.2 \
 	mono-mcs \
+	ocaml-nox \
 	perl-base \
 	php-cli \
 	python \
@@ -151,6 +154,9 @@ Go_GCC: hello-world.go
 
 Haskell: $(wildcard *.hs)
 	$(Haskell_COMPILER) $(HASKELL_FLAGS) -o $@ -main-is HelloWorld $^
+
+OCaml: hello.ml
+	$(OCaml_COMPILER) -o $@ $^
 
 Pascal: hello-world.p
 	$(Pascal_COMPILER) $(PASCAL_FLAGS) -o$@ $^

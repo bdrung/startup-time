@@ -8,10 +8,13 @@ Go_GCC
 Haskell
 hello_cython.c
 hello_cython3.c
+OCaml
 Pascal
 run
 Rust
 *.class
+*.cmi
+*.cmo
 *.exe
 *.hi
 *.o
