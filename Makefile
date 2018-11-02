@@ -105,7 +105,7 @@ PACKAGES := \
 
 run_lang = \
 	@printf "%-25s " "$(1):" $(\n)\
-	@$(TIME) $(RUN) $(2) 2>&1 > /dev/null | tr -d '\n'$(\n)\
+	@$(TIME) $(RUN) $(2) 2>&1 | tr -d '\n'$(\n)\
 	@printf " ms\n"
 
 all: $(COMPILED_LANGS) hello-world.exe HelloWorld.class HelloWorldScala.class run

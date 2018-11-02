@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012, Benjamin Drung <bdrung@debian.org>
+ * Copyright (C) 2012-2018, Benjamin Drung <bdrung@debian.org>
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -64,6 +64,12 @@ int main(int argc, char *argv[]) {
     CPU_ZERO(&cpu_set);
     CPU_SET(core, &cpu_set);
     if(unlikely(sched_setaffinity(getpid(), sizeof(cpu_set), &cpu_set) == -1)) {
+        perror("run");
+        exit(EXIT_FAILURE);
+    }
+
+    // Throw away all output (on stdout) from called program
+    if(unlikely(freopen("/dev/null", "w", stdout) == NULL)) {
         perror("run");
         exit(EXIT_FAILURE);
     }
