@@ -1,7 +1,7 @@
 Startup time of different programming languages
 ===============================================
 
-The starup time of a programming language is important for short running programs that are called
+The startup time of a programming language is important for short running programs that are called
 interactively by the user or are called (many times) by other programs. For example, the version
 control system Git is written in C and the invoked commands (like `git status` and `git log`)
 execute fast. The version control systems Bazaar and Mercurial are written in Python. They take
